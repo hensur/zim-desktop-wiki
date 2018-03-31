@@ -188,6 +188,13 @@ class SourceViewObject(CustomObjectClass):
 			self.buffer.connect('modified-changed', self.on_modified_changed)
 			self.buffer.set_highlight_matching_brackets(True)
 			self.buffer.set_modified(False)
+			ssm = gtksourceview2.StyleSchemeManager()
+			style_scheme_name = 'darkmate'
+			style_scheme = ssm.get_scheme(style_scheme_name)
+			if style_scheme:
+				self.buffer.set_style_scheme(style_scheme)
+			else:
+				logger.error("invalid GTK source theme: '{0}'".format(style_scheme_name))
 			self._data = None
 
 			try:
